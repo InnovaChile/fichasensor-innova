@@ -8,6 +8,18 @@ class DateUtils:
         un serial de fecha de Excel (float/int), o un string reconocible.
         Si la entrada no es reconocida como fecha, devuelve str(date).
         """
+        # Nulos/NaT/NaN: salida vacia para evitar errores de strftime en pandas.NaT
+        if date is None:
+            return ""
+        try:
+            import pandas as pd
+            if pd.isna(date):
+                return ""
+        except ImportError:
+            pass
+        except Exception:
+            pass
+
         # Soporte para float/int (Excel serial)
         if isinstance(date, (float, int)):
             # Excel base date: 1899-12-30
@@ -45,7 +57,8 @@ class DateUtils:
             except Exception:
                 pass  # Si tampoco es ISO, sigue
 
-        # Por defecto, devuelve string vacío si está vacío o nan
-        if not date or str(date).lower() == 'nan':
+        # Por defecto, devuelve string vacío para textos vacíos o valores no informados
+        date_str = str(date).strip()
+        if date_str.lower() in ("", "nan", "nat", "none"):
             return ""
         return str(date)
