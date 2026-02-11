@@ -56,3 +56,12 @@ example/
 test/
 tests/
 sandbox/
+# Empaquetado y distribucion
+setup.py
+test.py
+dist/
+*.egg-info/
+*.whl
+pip-wheel-metadata/
+.eggs/
+*.spec
