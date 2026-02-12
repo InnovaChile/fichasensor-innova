@@ -97,7 +97,7 @@ class FileUtils:
     def get_ico_corfo_path():
         """ Devuelve la ruta al icono de Corfo.
         """
-        return os.path.join(FileUtils.get_assets_folder(), "corfo.ico")
+        return os.path.join(FileUtils.get_assets_folder(), "favicon.ico")
     
 
 
