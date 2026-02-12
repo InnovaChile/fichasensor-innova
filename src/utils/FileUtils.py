@@ -55,16 +55,31 @@ class FileUtils:
     def get_template_path(template_name):
         """ Devuelve la ruta al archivo de plantilla especificado.
         """
-        # Usa get_base_dir()
-        return os.path.join(FileUtils.get_base_dir(), "templates", template_name)
+        return FileUtils.resolve_resource_path(
+            os.path.join("src", "templates", template_name),
+            os.path.join("templates", template_name),
+        )
 
     @staticmethod
     def get_assets_folder():
         """ Devuelve la ruta a la carpeta de assets.
         """
-        # Usa get_base_dir() para construir la ruta a la carpeta de assets
-        # Asumiendo que la carpeta de assets está en la raíz del proyecto
-        return os.path.join(FileUtils.get_base_dir(), "assets")
+        return FileUtils.resolve_resource_path(
+            os.path.join("src", "assets"),
+            "assets",
+        )
+
+    @staticmethod
+    def resolve_resource_path(*relative_paths):
+        """
+        Busca un recurso en rutas candidatas para desarrollo y ejecutable empaquetado.
+        """
+        base_dir = FileUtils.get_base_dir()
+        for rel_path in relative_paths:
+            candidate = os.path.join(base_dir, rel_path)
+            if os.path.exists(candidate):
+                return candidate
+        return os.path.join(base_dir, relative_paths[0])
 
     @staticmethod
     def get_logo_corfo_path():

@@ -169,7 +169,7 @@ class MainApp(ctk.CTk):
             self.combo_fichas.configure(state="disabled")
             self.btn_generar.configure(state="disabled")
             self.estado_msg.configure(text="")
-            messagebox.showwarning("No encontrado", "No se encontró el proyecto solicitado.")
+            messagebox.showwarning("No encontrado", "El proyecto no tiene Fichas Sensor ingresadas.")
 
     def on_accion_cambio(self, *_):
         # Habilita/deshabilita combo y botón según la acción
